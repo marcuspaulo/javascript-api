@@ -1,18 +1,14 @@
-const yargs = require('yargs');
-const axios = require('axios').default;
+const express = require("express");
+const app = express();
 
-const user = 'marcuspaulo';
+app.listen(3000, () => {
+    console.log("Application started on port 3000");
+});
 
-if (user) {
-    let url = `https://api.github.com/users/${user}/repos`
-    axios.get(url, {
+app.get("/", (req, res) => {
+    res.send("Hello world!");
+});
 
-    })
-        .then((response) => {
-            let country = response.data[0];
-            console.log('Population:', country.population);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-}
+app.get("/repo", (req, res) => {
+    res.end('Repo: ' + req.query.name);
+});
